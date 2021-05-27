@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import TopBar from './containers/TopBar'
 import ItemListing from './containers/ItemListing';
 import ItemDetails from './containers/ItemDetails';
-import { ShoppingCartIcon } from '@material-ui/icons/ShoppingCart';
+
 
 
 function App() {
