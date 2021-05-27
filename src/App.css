@@ -1,3 +1,9 @@
+/* Use custom fonts */
+@font-face {
+  font-family: customFont;
+  src: url(./font/Michelangelo.otf);
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +41,27 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Product_name {
+  overflow: hidden;
+  color: black;
+  font-size: medium;
+  text-overflow: ellipsis;
+  min-height: 2.25em;
+}
+
+.Content {
+  min-height: 20px;
+  width: 100%;
+}
+
+.Nav_title {
+  font-family: customFont;
+  font-size: 18px;
+}
+
+.Nav {
+  flex-direction: row;
+  justify-content: space-between;
 }
