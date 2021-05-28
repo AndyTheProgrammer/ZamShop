@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { AppBar, CssBaseline, Typography } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,11 +14,16 @@ import useStyles from "../style";
 const TopBar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [data, setData] = React.useState({
+ /* const [data, setData] = React.useState({
     currencies: ["ZMK", "USD", "EUR", "AED"],
     base: "",
   });
-
+  */
+ const [initialState, setSate] = useState({
+   currencies: ["USD", "JPY", "EUR", "GBP"],
+    base: "USD",
+ })
+const {currencies, base } = initialState;
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -49,11 +54,20 @@ const TopBar = () => {
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>ZMK</MenuItem>
-            <MenuItem onClick={handleClose}>USD</MenuItem>
-            <MenuItem onClick={handleClose}>EUR</MenuItem>
-          </Menu>
+            name="base"
+            value={base}
+          > 
+          {currencies.map((currency) => {
+              return( 
+              <>
+            <MenuItem onClick={ handleClose } key={currency} value={currency}>{currency}</MenuItem>
+            
+           </>
+              );
+        })}        
+          
+          </Menu> 
+  
         </Toolbar>
       </AppBar>
     </div>

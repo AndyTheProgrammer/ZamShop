@@ -12,7 +12,7 @@ const ItemListing = () => {
 
   const products = useSelector((state) => state);
   const dispatch = useDispatch();
-
+  
   const getItems = async () => {
     const response = await axios
       .get("https://fakestoreapi.com/products?limit=10")
@@ -22,8 +22,18 @@ const ItemListing = () => {
     dispatch(setProducts(response.data));
   };
 
+  const getCurrency = async () => {
+      const result = await axios
+      .get("http://api.exchangeratesapi.io/latest?access_key=42197ecdd09c577e37a6b6b0489e860d")
+      .catch((err)=> {
+          console.log("Err", err);
+      })
+      console.log("rates", result.data)
+  }
+
   useEffect(() => {
     getItems();
+    getCurrency();
   }, []);
 
   console.log("Products: ", products);
