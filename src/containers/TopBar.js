@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, CssBaseline, Typography } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,20 +10,43 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import useStyles from "../style";
+import axios from "axios";
 
 const TopBar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
- /* const [data, setData] = React.useState({
-    currencies: ["ZMK", "USD", "EUR", "AED"],
-    base: "",
-  });
-  */
- const [initialState, setSate] = useState({
-   currencies: ["USD", "JPY", "EUR", "GBP"],
+  /* const [data, setData] = React.useState({
+     currencies: ["ZMK", "USD", "EUR", "AED"],
+     base: "",
+   });
+   */
+  const [initialState, setState] = useState({
+    currencies: ["USD", "JPY", "EUR", "GBP"],
     base: "USD",
- })
-const {currencies, base } = initialState;
+    convertTo: "",
+    amount: "",
+    result: "",
+  })
+  const { currencies, base, amount, convertTo, result } = initialState;
+
+  useEffect(() => {
+    if (amount === isNaN) {
+      return;
+    } else {
+      const getCurrencyConveter = async () => {
+        const response = await axios
+          .get(`http://api.exchangeratesapi.io/latest?access_key=42197ecdd09c577e37a6b6b0489e860d`);
+        console.log('response ==>', response)
+        const result = (response.data.rates[convertTo] * amount).toFixed(3);
+        console.log(result);
+        setState({
+          ...initialState,
+          result,
+        })
+      };
+      getCurrencyConveter()
+    }
+  }, [amount, base, convertTo])
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,6 +54,17 @@ const {currencies, base } = initialState;
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleSelect = (e) => {
+
+    setState({
+      ...initialState,
+      [e.target.name]: e.target.value,
+      result: null,
+
+
+    });
+  }
   return (
     <div className={classes.nav_root}>
       <AppBar position="static">
@@ -39,7 +73,7 @@ const {currencies, base } = initialState;
             ZamShop
           </Typography>
 
-          <Button
+           {/* <Button
             aria-controls="simple-menu"
             aria-haspopup="true"
             color="inherit"
@@ -48,14 +82,16 @@ const {currencies, base } = initialState;
           >
             Change Currency
           </Button>
+          
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            name="base"
-            value={base}
+            onChange={handleSelect}
+            name="convertTo"
+            value={convertTo}
           > 
           {currencies.map((currency) => {
               return( 
@@ -67,7 +103,26 @@ const {currencies, base } = initialState;
         })}        
           
           </Menu> 
-  
+           
+
+      */}
+     {/* <> <div className={classes.nav_left}>Change Currency </div> </> */}
+          <select id='simple-menu'className={classes.nav_left}
+            name="convertTo"
+            value={convertTo}
+            onChange={handleSelect}
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {currencies.map((currency) => (
+              <option key={currency} value={currency}>
+                {currency}
+              </option>
+            ))}
+
+          </select>
         </Toolbar>
       </AppBar>
     </div>
