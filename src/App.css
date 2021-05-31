@@ -5,7 +5,9 @@
 }
 
 .App {
+  flex: 1;
   text-align: center;
+  background-color: #ffffdf;
 }
 
 .App-logo {
@@ -59,9 +61,15 @@
 .Nav_title {
   font-family: customFont;
   font-size: 18px;
+  color: white;
 }
 
 .Nav {
   flex-direction: row;
   justify-content: space-between;
+}
+
+.Header_title {
+  font-family: customFont;
+  font-size: 38px;
 }

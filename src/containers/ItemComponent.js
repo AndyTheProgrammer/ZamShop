@@ -1,9 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
-import Avatar from "@material-ui/core/Avatar";
+import {
+  MDBCard,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+  MDBRipple,
+} from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import useStyles from "./../style";
 
@@ -16,26 +24,37 @@ const ItemComponent = () => {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={0.5}>
-          <Grid item xs={12} lg={5}>
-            <Link to={`/product/${id}`}>
-              <Box className="ui link cards" width={200} height={450}>
-                <div className="card">
-                  <img src={image} alt={title} className={classes.img} />
+        <Link to={`/product/${id}`}>
+          <MDBRow
+            className="row-cols-1 row-cols-md-4 g-4"
+            style={{ width: "18rem" }}
+            className="h-100"
+          >
+            <MDBCol className="h-100">
+              <MDBCard className="h-100 hover-zoom" shadow="10">
+                <MDBCardImage
+                  src={image}
+                  alt={title}
+                  position="top"
+                  className={classes.img}
+                />
 
-                  <div class="Content">
-                    <div className="Product_name">{title}</div>
-                    <p className="meta price">
-                      {sign}
-                      {price}
-                    </p>
-                    <p className="meta">{category} </p>
-                  </div>
-                </div>
-              </Box>
-            </Link>
-          </Grid>
-        </Grid>
+                <MDBCardBody>
+                  <MDBCardTitle style={{ color: "black", fontWeight: "bold" }}>
+                    {title}
+                  </MDBCardTitle>
+                  <MDBCardText style={{ color: "black" }}>
+                    {sign}
+                    {price}
+                  </MDBCardText>
+                  <MDBCardText style={{ color: "black" }}>
+                    {category}
+                  </MDBCardText>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </Link>
       </div>
     );
   });

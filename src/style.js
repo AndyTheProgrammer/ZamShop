@@ -10,10 +10,11 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     borderColor: "red",
     borderWidth: 2,
+    background: "#ffffdf",
   },
   container: {
-    background: theme.palette.background.paper,
-    padding: theme.spacing(6, 0, 6),
+    background: "#ffffdf",
+    flex: 1,
   },
   icon: {
     marginRight: "20px",
